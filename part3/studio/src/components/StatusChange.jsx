@@ -2,10 +2,19 @@ import { useState } from 'react';
 
 export default function StatusChange () {
 
+   const [notes, setNotes] = useState('');
+   const [recipeStatus, setRecipeStatus] = useState(false);
+
+
    const handleChange = (event) => {
+
+      setNotes(event.target.value);
+
    }
 
    const handleSubmit = (event) => {
+      event.preventDefault(); // Prevents the default form submission behavior
+      setRecipeStatus(true); // Updates recipeStatus to true when the form is submitted
    }
 
    return (
@@ -16,9 +25,23 @@ export default function StatusChange () {
             <input type="submit" />
          </form>
 
+          {/* Conditional rendering based on recipeStatus */}
+          {recipeStatus ? (
+            <p>Your Recipe Notes: {notes}</p>
+         ) : (
+
          <p>My Recipe Notes aren't here!</p>
 
+         )}
+
+          {recipeStatus ? (
+            <p>I have tried this recipe!</p>
+         ) : (
+
          <p>I have not tried this recipe!</p>
+
+         )}
+
       </div>
    );
 }
